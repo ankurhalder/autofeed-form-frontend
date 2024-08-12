@@ -19,7 +19,6 @@ const FormPage2 = ({ setPage }) => {
       const data = await response.json();
       console.log(data);
 
-      // Update only the relevant fields for page 2
       setFormData({
         goods: data.data.goods || "",
         color: data.data.color || "",
