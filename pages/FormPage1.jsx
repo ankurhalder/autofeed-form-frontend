@@ -1,5 +1,6 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
+import Loading from "../component/Loading";
 
 const FormPage1 = ({ setPage }) => {
   const [formData, setFormData] = useState({
@@ -8,8 +9,10 @@ const FormPage1 = ({ setPage }) => {
     city: "",
     country: "",
   });
+  const [loading, setLoading] = useState(false);
 
   const handleFetchData = async () => {
+    setLoading(true);
     try {
       const response = await fetch(
         "https://autofeed-form-backend.onrender.com/api/v1/forms/formdata"
@@ -19,7 +22,6 @@ const FormPage1 = ({ setPage }) => {
       }
       const data = await response.json();
       console.log(data);
-
       setFormData({
         name: data.data.name || "",
         address: data.data.address || "",
@@ -28,6 +30,8 @@ const FormPage1 = ({ setPage }) => {
       });
     } catch (error) {
       console.error("Error fetching form data:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -45,43 +49,49 @@ const FormPage1 = ({ setPage }) => {
 
   return (
     <div className="form-container">
-      <h2 className="header">Form - Page 1</h2>
-      <form>
-        <input
-          type="text"
-          name="name"
-          value={formData.name}
-          onChange={handleInputChange}
-          placeholder="Name"
-        />
-        <input
-          type="text"
-          name="address"
-          value={formData.address}
-          onChange={handleInputChange}
-          placeholder="Address"
-        />
-        <input
-          type="text"
-          name="city"
-          value={formData.city}
-          onChange={handleInputChange}
-          placeholder="City"
-        />
-        <input
-          type="text"
-          name="country"
-          value={formData.country}
-          onChange={handleInputChange}
-          placeholder="Country"
-        />
-        <button type="button" onClick={handleFetchData}>
-          Fill Form Automatically
-        </button>
-        <button type="button" onClick={handleNextPage}>
-          Next
-        </button>
-      </form>
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          <h2 className="header">Form - Page 1</h2>
+          <form>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleInputChange}
+              placeholder="Name"
+            />
+            <input
+              type="text"
+              name="address"
+              value={formData.address}
+              onChange={handleInputChange}
+              placeholder="Address"
+            />
+            <input
+              type="text"
+              name="city"
+              value={formData.city}
+              onChange={handleInputChange}
+              placeholder="City"
+            />
+            <input
+              type="text"
+              name="country"
+              value={formData.country}
+              onChange={handleInputChange}
+              placeholder="Country"
+            />
+            <button type="button" onClick={handleFetchData}>
+              Fill Form Automatically
+            </button>
+            <button type="button" onClick={handleNextPage}>
+              Next
+            </button>
+          </form>
+        </>
+      )}
     </div>
   );
 };
