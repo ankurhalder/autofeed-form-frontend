@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { FormPage1, FormPage2 } from "../pages";
 
 const App = () => {
@@ -15,7 +15,6 @@ const App = () => {
   const [page, setPage] = useState(1);
 
   useEffect(() => {
-    // Fetch the data from backend to prefill the form
     const fetchData = async () => {
       const response = await fetch("http://localhost:5000/api/formdata");
       const data = await response.json();
@@ -29,7 +28,6 @@ const App = () => {
   const previousPage = () => setPage(page - 1);
 
   const submitForm = async () => {
-    // Submit the form data to the backend
     await fetch("http://localhost:5000/api/formdata", {
       method: "POST",
       headers: {

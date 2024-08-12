@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 
 const FormPage1 = ({ formData, setFormData, nextPage }) => {
   const { name, address, city, country } = formData;
 
   return (
-    <div>
+    <div className="form-container">
       <h2>Page 1</h2>
       <input
         type="text"
@@ -33,6 +33,17 @@ const FormPage1 = ({ formData, setFormData, nextPage }) => {
       <button onClick={nextPage}>Next</button>
     </div>
   );
+};
+
+FormPage1.propTypes = {
+  formData: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    address: PropTypes.string.isRequired,
+    city: PropTypes.string.isRequired,
+    country: PropTypes.string.isRequired,
+  }).isRequired,
+  setFormData: PropTypes.func.isRequired,
+  nextPage: PropTypes.func.isRequired,
 };
 
 export default FormPage1;
