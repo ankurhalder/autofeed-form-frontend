@@ -1,49 +1,84 @@
+import { useState } from "react";
 import PropTypes from "prop-types";
 
-const FormPage1 = ({ formData, setFormData, nextPage }) => {
-  const { name, address, city, country } = formData;
+const FormPage1 = ({ setPage }) => {
+  const [formData, setFormData] = useState({
+    name: "",
+    address: "",
+    city: "",
+    country: "",
+  });
+
+  const handleFetchData = async () => {
+    try {
+      const response = await fetch("/api/formData");
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+      setFormData(data);
+    } catch (error) {
+      console.error("Error fetching form data:", error);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleNextPage = () => {
+    setPage(2);
+  };
 
   return (
     <div className="form-container">
-      <h2>Page 1</h2>
-      <input
-        type="text"
-        placeholder="Name"
-        value={name}
-        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-      />
-      <input
-        type="text"
-        placeholder="Address"
-        value={address}
-        onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-      />
-      <input
-        type="text"
-        placeholder="City"
-        value={city}
-        onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-      />
-      <input
-        type="text"
-        placeholder="Country"
-        value={country}
-        onChange={(e) => setFormData({ ...formData, country: e.target.value })}
-      />
-      <button onClick={nextPage}>Next</button>
+      <h2>Form - Page 1</h2>
+      <form>
+        <input
+          type="text"
+          name="name"
+          value={formData.name}
+          onChange={handleInputChange}
+          placeholder="Name"
+        />
+        <input
+          type="text"
+          name="address"
+          value={formData.address}
+          onChange={handleInputChange}
+          placeholder="Address"
+        />
+        <input
+          type="text"
+          name="city"
+          value={formData.city}
+          onChange={handleInputChange}
+          placeholder="City"
+        />
+        <input
+          type="text"
+          name="country"
+          value={formData.country}
+          onChange={handleInputChange}
+          placeholder="Country"
+        />
+        <button type="button" onClick={handleFetchData}>
+          Fill Form Automatically
+        </button>
+        <button type="button" onClick={handleNextPage}>
+          Next
+        </button>
+      </form>
     </div>
   );
 };
 
 FormPage1.propTypes = {
-  formData: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    address: PropTypes.string.isRequired,
-    city: PropTypes.string.isRequired,
-    country: PropTypes.string.isRequired,
-  }).isRequired,
-  setFormData: PropTypes.func.isRequired,
-  nextPage: PropTypes.func.isRequired,
+  setPage: PropTypes.func.isRequired,
 };
 
 export default FormPage1;
