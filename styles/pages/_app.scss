@@ -1,10 +1,7 @@
-// Basic styling
 body {
-  font-family: Arial, sans-serif;
+  font-family: "Helvetica Neue", sans-serif;
   background: url("/image.jpg") no-repeat center center fixed;
   background-size: cover;
-  margin: 0;
-  padding: 0;
   color: #333;
 }
 
@@ -13,29 +10,29 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  padding: 20px;
 }
 
 .form-container {
-  background: rgba(
-    255,
-    255,
-    255,
-    0.2
-  ); // Semi-transparent white for glassmorphism effect
+  background: rgba(255, 255, 255, 0.3);
   border-radius: 15px;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(10px); // Glassmorphism effect
-  -webkit-backdrop-filter: blur(10px); // For Safari
+  padding: 30px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
   width: 90%;
   max-width: 500px;
   transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 h2 {
   text-align: center;
-  margin-bottom: 20px;
-  color: #fff; // White text for contrast
+  margin-bottom: 25px;
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 1px;
 }
 
 form {
@@ -45,72 +42,80 @@ form {
 
 input[type="text"],
 input[type="number"] {
-  margin-bottom: 15px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  margin-bottom: 20px;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
   font-size: 16px;
-  background: rgba(255, 255, 255, 0.8); // Slightly transparent input fields
+  background: rgba(255, 255, 255, 0.9);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+  outline: none;
 }
 
 button {
-  padding: 10px;
+  padding: 12px;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   background-color: #007bff;
   color: white;
   font-size: 16px;
   cursor: pointer;
-  margin-top: 10px;
-  transition: background-color 0.3s ease;
+  margin-top: 15px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 button:hover {
   background-color: #0056b3;
+  transform: translateY(-2px);
 }
 
-// Responsive styling
 @media (max-width: 1366px) {
   .form-container {
-    max-width: 450px;
+    max-width: 500px;
   }
 }
 
 @media (max-width: 1000px) {
   .form-container {
-    max-width: 400px;
+    max-width: 500px;
   }
 }
 
 @media (max-width: 768px) {
   .form-container {
-    max-width: 350px;
+    max-width: 450px;
   }
 }
 
 @media (max-width: 550px) {
   .form-container {
     max-width: 100%;
-    padding: 10px;
+    padding: 15px;
   }
 
   input[type="text"],
   input[type="number"],
   button {
     font-size: 14px;
-    padding: 8px;
+    padding: 10px;
   }
 }
 
 @media (max-width: 360px) {
   .form-container {
-    padding: 5px;
+    padding: 10px;
   }
 
   input[type="text"],
   input[type="number"],
   button {
     font-size: 12px;
-    padding: 6px;
+    padding: 8px;
   }
 }
