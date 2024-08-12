@@ -11,12 +11,21 @@ const FormPage1 = ({ setPage }) => {
 
   const handleFetchData = async () => {
     try {
-      const response = await fetch("/api/formData");
+      const response = await fetch(
+        "https://autofeed-form-backend.onrender.com/api/v1/forms/formdata"
+      );
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
       const data = await response.json();
-      setFormData(data);
+      console.log(data);
+
+      setFormData({
+        name: data.data.name || "",
+        address: data.data.address || "",
+        city: data.data.city || "",
+        country: data.data.country || "",
+      });
     } catch (error) {
       console.error("Error fetching form data:", error);
     }
@@ -36,7 +45,7 @@ const FormPage1 = ({ setPage }) => {
 
   return (
     <div className="form-container">
-      <h2>Form - Page 1</h2>
+      <h2 className="header">Form - Page 1</h2>
       <form>
         <input
           type="text"
